@@ -1,0 +1,12 @@
+{
+    "name": "qw0101.colorhighlighter",
+    "title": "Color Highlighter",
+    "description": "Color highlighter for CSS, LESS, SASS and Stylus",
+    "homepage": "https://github.com/QW0101/Brackets-Color-Highlighter",
+    "version": "1.0.0",
+    "author": "Alexander Taratin <al.qw0101@gmail.com>",
+    "license": "Public Domain",
+    "engines": {
+        "brackets": ">=0.20.0"
+    }
+}
