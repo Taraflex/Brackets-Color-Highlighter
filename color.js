@@ -23,10 +23,6 @@ define(function () {
         return (this.r * 0.8 + this.g + this.b * 0.2) / 510 * 100;
     }
 
-    /*Color.prototype.valueOf = function () {
-        return 65536 * this.r + 256 * this.g + this.b;
-    }*/
-
     Color.prototype.toHexString = function () {
         function componentToHex(c) {
             var hex = (~~c).toString(16);
