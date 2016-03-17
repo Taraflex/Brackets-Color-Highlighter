@@ -4,11 +4,6 @@ define(function (require) {
     var Color = require('color'),
         colors = require('definedcolors');
 
-    function Colorhighlighter(cm) {
-        cm.on('renderLine', this.process.bind(this));
-        this.process(cm, null, cm.display.lineDiv);
-    }
-
     function processElement(e, color, tcolor) {
         e.style.backgroundColor = tcolor;
         e.style.borderRadius = '2px';
@@ -76,7 +71,7 @@ define(function (require) {
         return null;
     }
 
-    Colorhighlighter.prototype.process = function (cm, cmline, node) {
+    function process(cm, _, node) {
         var mode = cm.options.mode;
         var nodes = [];
         switch (mode) {
@@ -210,5 +205,15 @@ define(function (require) {
         }
     };
 
-    return Colorhighlighter;
+    return {
+        addHighlighter: function (cm) {
+            cm._colorHighlighter = true;
+            cm.on('renderLine', process);
+            process(cm, null, cm.display.lineDiv);
+        },
+        destroyHighlighter: function (cm) {
+            cm.off('renderLine', process);
+            cm._colorHighlighter = null;
+        }
+    };
 });

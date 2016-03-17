@@ -24,12 +24,13 @@ define(function (require, exports, module) {
 
     function processEditor(editor) {
         var cm = editor._codeMirror;
-
-        if (!cm._colorHighlighter && validLang(editor.document ? editor.document.language._id : null)) {
-            cm._colorHighlighter = new Colorhighlighter(cm);
-        }
-        else if (cm._colorHighlighter) {
-            cm._colorHighlighter = null;
+        if (cm) {
+            if (!cm._colorHighlighter && validLang(editor.document ? editor.document.language._id : null)) {
+                Colorhighlighter.addHighlighter(cm);
+            }
+            else if (cm._colorHighlighter) {
+                Colorhighlighter.destroyHighlighter(cm);
+            }
         }
     }
 
@@ -40,9 +41,9 @@ define(function (require, exports, module) {
             var doc = editor.document;
             if (!doc._hasColorHighlighterListeners) {
                 doc._hasColorHighlighterListeners = true;
-                doc.on('languageChanged', (function (targetDoc, langFrom, langTo) {
+                doc.on('languageChanged', function () {
                     processEditor(editor);
-                }));
+                });
             }
         }
     });
