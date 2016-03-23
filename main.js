@@ -25,10 +25,10 @@ define(function (require, exports, module) {
     function processEditor(editor) {
         var cm = editor._codeMirror;
         if (cm) {
-            if (!cm._colorHighlighter && validLang(editor.document ? editor.document.language._id : null)) {
+            if (editor.document && validLang(editor.document.language._id)) {
                 Colorhighlighter.addHighlighter(cm);
             }
-            else if (cm._colorHighlighter) {
+            else {
                 Colorhighlighter.destroyHighlighter(cm);
             }
         }

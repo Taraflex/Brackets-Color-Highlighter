@@ -7,13 +7,13 @@ define(function (require) {
     function processElement(e, color, tcolor) {
         e.style.backgroundColor = tcolor;
         e.style.borderRadius = '2px';
-        e.style.color = ((color.light() < 50) ? '#fff' : '#000');
+        e.style.color = color.light() < 50 ? '#fff' : '#000';
     }
 
     function parseCSSNumber(s) {
         s = s.trim();
         if (s[s.length - 1] == '%') {
-            return parseInt(s) / 100 * 255;
+            return parseInt(s) * 2.55;
         }
         else {
             return parseInt(s);
@@ -207,13 +207,17 @@ define(function (require) {
 
     return {
         addHighlighter: function (cm) {
-            cm._colorHighlighter = true;
-            cm.on('renderLine', process);
-            process(cm, null, cm.display.lineDiv);
+            if (!cm._colorHighlighter) {
+                cm._colorHighlighter = true;
+                cm.on('renderLine', process);
+                process(cm, null, cm.display.lineDiv);
+            }
         },
         destroyHighlighter: function (cm) {
-            cm.off('renderLine', process);
-            cm._colorHighlighter = null;
+            if (cm._colorHighlighter) {
+                cm.off('renderLine', process);
+                cm._colorHighlighter = null;
+            }
         }
     };
 });
