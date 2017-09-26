@@ -19,6 +19,7 @@ define(function (require, exports, module) {
             mode == 'scss' ||
             mode == 'less' ||
             mode == 'html' ||
+            mode == 'php'  ||
             mode == 'stylus';
     }
 
